@@ -1,4 +1,5 @@
 #pragma once
+#include "stc.hpp"
 #include "Player.hpp"
 #include <iostream>
 #include <string>
@@ -22,19 +23,19 @@ public:
         Player& opponentPlayer = player1Starts ? player2 : player1;
 
         while (true) {
-            std::cout << "Enter your guess (4 unique digits): ";
+            std::cout << "Попробуйте угадать (четыре уникальных цифры): ";
             std::cin >> guess;
 
             if (guess.length() != 4 || !isUnique(guess)) {
-                std::cout << "Invalid guess. Please enter 4 unique digits." << std::endl;
+                std::cout << stc::TRUE_COLOR << stc::rgb_fg(255, 0, 0) << "Неверный ввод. Введите четыре уникальных цифры." << std::endl << std::endl;
                 continue;
             }
 
             auto result = opponentPlayer.evaluateGuess(guess);
-            std::cout << "Bulls: " << result.first << ", Cows: " << result.second << std::endl;
+            std::cout << "Быков: " << result.first << ", Коров: " << result.second << std::endl << std::endl;
 
             if (result.first == 4) {
-                std::cout << "Congratulations! You've guessed the number!" << std::endl;
+                std::cout << "Поздравляю! Вы угадали!" << std::endl;
                 break;
             }
 

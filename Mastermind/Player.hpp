@@ -1,5 +1,11 @@
 #pragma once
 #include "Game.hpp"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
 
 class Player {
 private:
@@ -7,9 +13,8 @@ private:
 
 public:
     Player() {
-        // Generate a random 4-digit number with unique digits
         while (true) {
-            secretNumber = std::to_string(rand() % 9000 + 1000); // Generate a number between 1000 and 9999
+            secretNumber = std::to_string(rand() % 9000 + 1000);
             std::vector<bool> digitUsed(10, false);
             bool unique = true;
 
@@ -21,7 +26,7 @@ public:
                 digitUsed[digit - '0'] = true;
             }
 
-            if (unique) break; // Exit if the number has unique digits
+            if (unique) break;
         }
     }
 
