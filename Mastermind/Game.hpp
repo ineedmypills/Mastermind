@@ -1,5 +1,4 @@
 #pragma once
-#include "stc.hpp"
 #include "Player.hpp"
 #include <iostream>
 #include <string>
@@ -7,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include "color.hpp"
 
 class Game {
 private:
@@ -27,12 +27,12 @@ public:
             std::cin >> guess;
 
             if (guess.length() != 4 || !isUnique(guess)) {
-                std::cout << stc::TRUE_COLOR << stc::rgb_fg(255, 0, 0) << "Неверный ввод. Введите четыре уникальных цифры." << std::endl << std::endl;
+                std::cout << hue::red << "Неверный ввод. Введите четыре уникальных цифры." << hue::reset << std::endl << std::endl;
                 continue;
             }
 
             auto result = opponentPlayer.evaluateGuess(guess);
-            std::cout << "Быков: " << result.first << ", Коров: " << result.second << std::endl << std::endl;
+            std::cout << hue::green << "Быков: " << result.first << std::endl << hue::yellow << "Коров: " << result.second << hue::reset << std::endl << std::endl;
 
             if (result.first == 4) {
                 std::cout << "Поздравляю! Вы угадали!" << std::endl;

@@ -131,9 +131,9 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="color.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="stc.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
