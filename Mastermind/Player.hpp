@@ -10,6 +10,7 @@
 class Player {
 private:
     std::string secretNumber;
+    bool debugMode = true;
 
 public:
     Player() {
@@ -25,8 +26,11 @@ public:
                 }
                 digitUsed[digit - '0'] = true;
             }
-
-            if (unique) break;
+            if (unique)
+            {
+                if (debugMode) { std::cout << secretNumber << std::endl; };
+                break;
+            }
         }
     }
 
@@ -37,13 +41,26 @@ public:
     std::pair<int, int> evaluateGuess(const std::string& guess) const {
         int bulls = 0;
         int cows = 0;
+        std::vector<bool> secretUsed(secretNumber.size(), false);
+        std::vector<bool> guessUsed(guess.size(), false);
 
         for (size_t i = 0; i < secretNumber.size(); ++i) {
             if (guess[i] == secretNumber[i]) {
                 bulls++;
+                secretUsed[i] = true;
+                guessUsed[i] = true;
             }
-            else if (secretNumber.find(guess[i]) != std::string::npos) {
-                cows++;
+        }
+
+        for (size_t i = 0; i < guess.size(); ++i) {
+            if (!guessUsed[i]) {
+                for (size_t j = 0; j < secretNumber.size(); ++j) {
+                    if (!secretUsed[j] && guess[i] == secretNumber[j]) {
+                        cows++;
+                        secretUsed[j] = true;
+                        break;
+                    }
+                }
             }
         }
 

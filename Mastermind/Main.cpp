@@ -7,8 +7,9 @@ int main() {
     SetConsoleOutputCP(1251);
 
     srand(static_cast<unsigned int>(time(0)));
-    bool player1Starts = true;
-    Game game(player1Starts);
+    bool singlePlayer = true;
+
+    Game game(singlePlayer);
     game.play();
     return 0;
 }

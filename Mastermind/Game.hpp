@@ -12,15 +12,54 @@ class Game {
 private:
     Player player1;
     Player player2;
-    bool player1Starts;
+    Player computer;
+    bool singlePlayerMode;
 
 public:
-    Game(bool player1Starts) : player1Starts(player1Starts) {}
+    Game(bool singlePlayerMode) : singlePlayerMode(singlePlayerMode) {
+        srand(static_cast<unsigned>(time(0)));
+    }
 
     void play() {
+        if (singlePlayerMode) {
+            playSinglePlayer();
+        }
+        else {
+            playMultiplayer();
+        }
+    }
+
+private:
+    void playSinglePlayer() {
         std::string guess;
-        Player& currentPlayer = player1Starts ? player1 : player2;
-        Player& opponentPlayer = player1Starts ? player2 : player1;
+
+        std::cout << "Компьютер загадал число. Попробуйте угадать!" << std::endl;
+
+        while (true) {
+            std::cout << "Введите вашу догадку (четыре уникальных цифры): ";
+            std::cin >> guess;
+
+            if (guess.length() != 4 || !isUnique(guess)) {
+                std::cout << hue::red << "Неверный ввод. Введите четыре уникальных цифры." << hue::reset << std::endl << std::endl;
+                continue;
+            }
+
+            auto result = computer.evaluateGuess(guess);
+            std::cout << hue::green << "Быков: " << result.first << std::endl
+                << hue::yellow << "Коров: " << result.second << hue::reset << std::endl
+                << std::endl;
+
+            if (result.first == 4) {
+                std::cout << hue::green << "Поздравляю! Вы угадали число!" << hue::reset << std::endl;
+                break;
+            }
+        }
+    }
+
+    void playMultiplayer() {
+        std::string guess;
+        Player& currentPlayer = player1;
+        Player& opponentPlayer = player2;
 
         while (true) {
             std::cout << "Попробуйте угадать (четыре уникальных цифры): ";
@@ -32,19 +71,19 @@ public:
             }
 
             auto result = opponentPlayer.evaluateGuess(guess);
-            std::cout << hue::green << "Быков: " << result.first << std::endl << hue::yellow << "Коров: " << result.second << hue::reset << std::endl << std::endl;
+            std::cout << hue::green << "Быков: " << result.first << std::endl
+                << hue::yellow << "Коров: " << result.second << hue::reset << std::endl
+                << std::endl;
 
             if (result.first == 4) {
-                std::cout << "Поздравляю! Вы угадали!" << std::endl;
+                std::cout << hue::green << "Поздравляю! Вы угадали число!" << hue::reset << std::endl;
                 break;
             }
 
-            // Swap players
             std::swap(currentPlayer, opponentPlayer);
         }
     }
 
-private:
     bool isUnique(const std::string& str) const {
         std::vector<bool> digitUsed(10, false);
         for (char digit : str) {
