@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Game">
-    <Position X="6.75" Y="2" Width="1.5" />
+    <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>wAAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAABAAAAAAA=</HashCode>
       <FileName>Game.hpp</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="player1" />
+      <Field Name="player2" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Player">
-    <Position X="8.5" Y="2" Width="1.5" />
+    <Position X="6.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAgAAAAAAAAAAAEAAAAQAAAAA=</HashCode>
       <FileName>Player.hpp</FileName>
